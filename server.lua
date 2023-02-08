@@ -1,0 +1,107 @@
+local QBCore = exports['qb-core']:GetCoreObject()
+
+QBCore.Functions.CreateUseableItem("metaldetector", function(src, item)
+    TriggerClientEvent("domi-treasurehunt:detect", src)
+end)
+
+QBCore.Functions.CreateUseableItem("treasuremap", function(src, item)
+    TriggerClientEvent("domi-treasurehunt:usemap", src )
+end)
+
+RegisterServerEvent('domi-treasurehunt:AddItems', function()
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    local Chance = math.random(1, 100)
+    local Tier = GetTier(Chance)
+    local Items = ItemPicker(Tier)
+    local Amount = GetAmount(Tier)
+    for k, Item in pairs(Items) do
+        Player.Functions.AddItem(Item, Amount)
+        TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items[Item], "add")
+        TriggerClientEvent('QBCore:Notify', src, "Du hittade ".. QBCore.Shared.Items[Item].label .."!", "success")
+    end
+end)
+
+RegisterServerEvent("domi-treasurehunt:removemap", function()
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    TriggerClientEvent('QBCore:Notify', src, "Du undersöker kartan du fick, och hittar platsen!", "success")
+    Player.Functions.RemoveItem("treasuremap", 1, false)
+    TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items['treasuremap'], "remove")
+end)
+
+RegisterServerEvent('domi-treasurehunt:collectmap', function()
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    if Player.Functions.GetItemByName('treasuremap') then
+        TriggerClientEvent('QBCore:Notify', src, "Du har redan en skattkarta!", "error")
+    else
+        Player.Functions.AddItem("treasuremap", 1, false)
+        TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items['treasuremap'], "add")
+        TriggerClientEvent('QBCore:Notify', src, "Du fick en Skattkarta!", "success")
+    end
+end)
+
+function GetTier(Chance)
+    local Tier = nil
+    if Chance <= Config.LowChance then
+        Tier = 'Tier1'
+    elseif Chance <= Config.HighChance then
+        Tier = 'Tier2'
+    else
+        Tier = 'Tier3'
+    end
+    return Tier
+end
+
+function ItemPicker(Tier)
+    return Config.Treasureloot[Tier][math.random(1, #Config.Treasureloot[Tier])]
+end
+
+function GetAmount(Tier)
+    local Amount = nil
+    if Tier == 'Tier1' then
+        Amount = math.random(1, 10)
+    elseif Tier == 'Tier2' then
+        Amount = math.random(1, 3)
+    else
+        Amount = 1
+    end
+    return Amount
+end
+
+RegisterNetEvent('domi-treasurehunt:SellEmerald', function()
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    if Player.Functions.GetItemByName('emeraldore') then
+        Player.Functions.AddMoney('cash', Config.EmeraldOrePrice)
+        Player.Functions.RemoveItem("emeraldore", 1, false)
+        TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items['emeraldore'], "remove")
+    else
+        TriggerClientEvent('QBCore:Notify', src, "Du har inga Smaragder!!", "error")
+    end
+end)
+
+RegisterNetEvent('domi-treasurehunt:SellDiamond', function()
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    if Player.Functions.GetItemByName('diamondore') then
+        Player.Functions.AddMoney('cash', Config.DiamondOrePrice)
+        Player.Functions.RemoveItem("diamondore", 1, false)
+        TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items['diamondore'], "remove")
+    else
+        TriggerClientEvent('QBCore:Notify', src, "Du har inga Diamanter!!", "error")
+    end
+end)
+
+RegisterNetEvent('domi-treasurehunt:SellGold', function()
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    if Player.Functions.GetItemByName('goldore') then
+        Player.Functions.AddMoney('cash', Config.GoldOrePrice)
+        Player.Functions.RemoveItem("goldore", 1, false)
+        TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items['goldore'], "remove")
+    else
+        TriggerClientEvent('QBCore:Notify', src, "Du har inget Guld!!", "error")
+    end
+end)
