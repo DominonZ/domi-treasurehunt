@@ -3,10 +3,10 @@
 
 A new way for your non-illegal players to get some non-illegal money! Configurable to add items of your choice and locations of your choice. This script brings the fun in RP! Feel free to make PR's and suggestions if needed
 
-## Video Preview
-- <a href="https://youtu.be/16dzPSbWQXU">**Showcase**</a>
 
-Borrowed the Video by AL
+
+
+
 
 ## Dependencies
 - <a href="https://github.com/qbcore-framework/qb-core">**qb-core**</a>
