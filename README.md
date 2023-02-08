@@ -1,5 +1,7 @@
 # domi-treasurehunt
-QB-Core
+
+
+
 A way for Player's the embark on a Treasure hunt!
 Basic stuff really, and honestly it's highly customizable!
 
