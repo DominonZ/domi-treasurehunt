@@ -1,10 +1,15 @@
 # domi-treasurehunt
+QB-Core
+A way for Player's the embark on a Treasure hunt!
+Basic stuff really, and honestly it's highly customizable!
+
+An activity in which you travel to about 4 different location's to use a metaldetector and dig up Treasure!
+What that Treasure is, is for you to decide..
+
+I've included some item's already, but anything could be added, as long that it exist in your shared/items.lua
 
 
-A new way for your non-illegal players to get some non-illegal money! Configurable to add items of your choice and locations of your choice. This script brings the fun in RP! Feel free to make PR's and suggestions if needed
-
-
-
+Drag and drop everything in this to your Standalone folder.
 
 
 
@@ -16,7 +21,14 @@ A new way for your non-illegal players to get some non-illegal money! Configurab
 
 ## Items
 Make sure you add to your items.lua (qb-core/shared/items.lua)
+
+
+Make sure to also add everything in the images folder to your inventory script's image folder.
+
+inventory/html/images
 <pre>
+
+-- Domi-treasurehunt
 
 ["metaldetector"] = {
     ["name"] = "metaldetector",
@@ -83,10 +95,6 @@ Make sure you add to your items.lua (qb-core/shared/items.lua)
     ["description"] = 'Shiny Rock',
 },
 </pre>
-
-Make sure to also add everything in the images folder to your inventory script's image folder.
-
-inventory/html/images
 
 ## Shoutouts
 Custom Prop made by <a href="https://www.turbosquid.com/3d-models/3d-metal-detector/1138741">**Vartanyan**</a>
